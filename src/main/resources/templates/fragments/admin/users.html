@@ -1,0 +1,162 @@
+<section id="usuarios-section" class="admin-section" th:fragment="users">
+    <div class="admin-header-section">
+        <h2><i class="fas fa-users"></i> Gestão de Usuários</h2>
+        <a href="admin.html" class="btn btn-primary" id="add-usuario-btn">
+            <i class="fas fa-plus"></i> Adicionar Usuário
+        </a>
+    </div>
+
+    <form id="usuario-form" class="form-grid two-columns" action="admin.html" method="POST">
+        <input type="hidden" name="id" value="">
+        <input type="hidden" name="createdAt" value="">
+        <div class="form-group">
+            <label for="usuario-firstname">Nome</label>
+            <input type="text" id="usuario-firstname" name="firstName" required>
+        </div>
+        <div class="form-group">
+            <label for="usuario-lastname">Sobrenome</label>
+            <input type="text" id="usuario-lastname" name="lastName" required>
+        </div>
+        <div class="form-group">
+            <label for="usuario-email">E-mail</label>
+            <input type="email" id="usuario-email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="usuario-phone">Telefone</label>
+            <input type="tel" id="usuario-phone" name="phone" required placeholder="(11) 99999-9999" maxlength="15">
+        </div>
+        <div class="form-group">
+            <label for="usuario-password">
+                <i class="fas fa-lock"></i> Senha
+            </label>
+            <div class="password-field">
+                <input type="password" id="usuario-password" name="password" required placeholder="Digite a senha" minlength="8">
+                <button type="button" class="password-toggle" id="usuario-password-toggle">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="usuario-confirm-password">
+                <i class="fas fa-lock"></i> Confirmar Senha
+            </label>
+            <div class="password-field">
+                <input type="password" id="usuario-confirm-password" name="confirmPassword" required placeholder="Confirme a senha">
+                <button type="button" class="password-toggle" id="usuario-confirm-password-toggle">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="password-requirements full-width" id="usuario-password-requirements">
+            <p><i class="fas fa-info-circle"></i> Sua senha deve ter:</p>
+            <ul>
+                <li id="usuario-req-length"><i class="fas fa-times"></i> Pelo menos 8 caracteres</li>
+                <li id="usuario-req-uppercase"><i class="fas fa-times"></i> Uma letra maiúscula</li>
+                <li id="usuario-req-number"><i class="fas fa-times"></i> Um número</li>
+                <li id="usuario-req-special"><i class="fas fa-times"></i> Um caractere especial</li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label for="usuario-status">Status</label>
+            <select id="usuario-status" name="status" required>
+                <option value="">Selecione um status</option>
+                <option value="ACTIVE">Ativo</option>
+                <option value="INACTIVE">Inativo</option>
+                <option value="BLOCKED">Bloqueado</option>
+                <option value="SUSPENDED">Suspenso</option>
+            </select>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn btn-outline btn-form">
+                <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary btn-form">
+                <i class="fas fa-save"></i> Salvar
+            </button>
+        </div>
+    </form>
+    <br><hr><br>
+
+    <!-- Filters -->
+    <div class="admin-filters">
+        <div class="filter-group">
+            <input type="text" id="search-usuarios" placeholder="Buscar usuários..." class="admin-input">
+            <select id="filter-status" class="admin-select" onchange="window.location.href = 'admin.html' + (this.value ? '?status=' + encodeURIComponent(this.value) : '')">
+                <option value="" selected>Todos os status</option>
+                <option value="ACTIVE">Ativo</option>
+                <option value="INACTIVE">Inativo</option>
+                <option value="BLOCKED">Bloqueado</option>
+                <option value="SUSPENDED">Suspenso</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="admin-table-container">
+        <table class="admin-table" id="usuarios-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Status</th>
+                <th>Data Cadastro</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody id="usuarios-tbody">
+            <tr>
+                <td>1</td>
+                <td>Maria Santos</td>
+                <td>maria.santos@email.com</td>
+                <td>(11) 98765-4321</td>
+                <td>ACTIVE</td>
+                <td>15/03/2025 14:30</td>
+                <td class="action-buttons">
+                    <a href="admin.html" class="btn-icon btn-edit" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="admin.html" class="btn-icon btn-delete" title="Excluir">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Carlos Oliveira</td>
+                <td>carlos.oliveira@email.com</td>
+                <td>(21) 97654-3210</td>
+                <td>ACTIVE</td>
+                <td>18/03/2025 10:15</td>
+                <td class="action-buttons">
+                    <a href="admin.html" class="btn-icon btn-edit" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="admin.html" class="btn-icon btn-delete" title="Excluir">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Ana Costa</td>
+                <td>ana.costa@email.com</td>
+                <td>(31) 96543-2109</td>
+                <td>INACTIVE</td>
+                <td>20/03/2025 16:45</td>
+                <td class="action-buttons">
+                    <a href="admin.html" class="btn-icon btn-edit" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="admin.html" class="btn-icon btn-delete" title="Excluir">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

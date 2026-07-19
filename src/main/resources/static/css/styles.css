@@ -109,6 +109,7 @@ body {
     color: var(--main-color);
     font-size: 1.8rem;
     font-weight: 700;
+    cursor: default;
 }
 
 .logo h1 i {
