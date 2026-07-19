@@ -54,9 +54,9 @@
                         </a>
                     </li>
                     <li class="admin-nav-item">
-                        <a th:href="@{/admin/products}"
+                        <a th:href="@{/admin/product}"
                            class="admin-nav-link"
-                           th:classappend="${adminSection == 'products'} ? ' active' : ''"
+                           th:classappend="${adminSection == 'product'} ? ' active' : ''"
                            data-section="product"
                         >
                             <i class="fas fa-box"></i>
@@ -64,9 +64,9 @@
                         </a>
                     </li>
                     <li class="admin-nav-item">
-                        <a th:href="@{/admin/orders}"
+                        <a th:href="@{/admin/order}"
                            class="admin-nav-link"
-                           th:classappend="${adminSection == 'orders'} ? ' active' : ''"
+                           th:classappend="${adminSection == 'order'} ? ' active' : ''"
                            data-section="order"
                         >
                             <i class="fas fa-shopping-cart"></i>
@@ -74,9 +74,9 @@
                         </a>
                     </li>
                     <li class="admin-nav-item">
-                        <a th:href="@{/admin/users}"
+                        <a th:href="@{/admin/user}"
                            class="admin-nav-link"
-                           th:classappend="${adminSection == 'users'} ? ' active' : ''"
+                           th:classappend="${adminSection == 'user'} ? ' active' : ''"
                            data-section="user"
                         >
                             <i class="fas fa-users"></i>
@@ -93,16 +93,16 @@
                 <section th:replace="~{fragments/admin/dashboard :: dashboard}"></section>
             </th:block>
 
-            <th:block th:case="'products'">
+            <th:block th:case="'product'">
                 <section th:replace="~{fragments/admin/products :: products}"></section>
             </th:block>
 
-            <th:block th:case="'orders'">
-                <section th:replace="~{fragments/admin/orders}"></section>
+            <th:block th:case="'order'">
+                <section th:replace="~{fragments/admin/orders :: orders}"></section>
             </th:block>
 
-            <th:block th:case="'users'">
-                <section th:replace="~{fragments/admin/users}"></section>
+            <th:block th:case="'user'">
+                <section th:replace="~{fragments/admin/users :: users}"></section>
             </th:block>
 
             <!-- Produtos Delete Confirmation Section -->

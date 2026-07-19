@@ -15,7 +15,7 @@ public class Product {
     private String name;
     private String category;
     private Double price;
-    private String state;
+    private String status;
     private String description;
 
     public UUID getId() {
@@ -50,12 +50,12 @@ public class Product {
         this.price = price;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -73,7 +73,7 @@ public class Product {
                 ", name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", price=" + price +
-                ", state='" + state + '\'' +
+                ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }

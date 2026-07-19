@@ -5,10 +5,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class OrdersController {
-    @GetMapping("/admin/orders")
-    public String dashboard(Model model) {
-        model.addAttribute("adminSection", "orders");
+public class OrderController {
+    @GetMapping("/admin/order")
+    public String order(Model model) {
+        model.addAttribute("adminSection", "order");
         return "admin";
     }
 }
