@@ -105,39 +105,9 @@
                 <section th:replace="~{fragments/admin/users :: users}"></section>
             </th:block>
 
-            <!-- Produtos Delete Confirmation Section -->
-            <!-- ⚠️ THYMELEAF: Remover style="display:none" e adicionar th:if="${adminSection == 'productDelete'}" -->
-            <section id="delete-confirmation" class="admin-section" style="display:none">
-                <div class="admin-card">
-                    <div class="card-header">
-                        <h3>
-                            <i class="fas fa-exclamation-triangle text-warning"></i>
-                            Excluir Produto
-                        </h3>
-                    </div>
-                    <div class="card-content">
-                        <div class="delete-confirmation">
-                            <div class="warning-icon">
-                                <i class="fas fa-exclamation-triangle"></i>
-                            </div>
-                            <h2>Confirmar Exclusão</h2>
-                            <p>Tem certeza que deseja excluir o produto:</p>
-                            <h4 class="product-name-highlight">Notebook Dell Inspiron 15</h4>
-                            <p class="warning-text">Esta ação não poderá ser desfeita.</p>
-                        </div>
-                    </div>
-                    <div class="card-footer delete-footer" style="display: flex; justify-content: center; padding-bottom: 2rem;">
-                        <div class="form-actions" style="gap: 1rem;">
-                            <a href="admin.html" class="btn btn-outline">
-                                <i class="fas fa-times"></i> Cancelar
-                            </a>
-                            <a href="admin.html" class="btn btn-danger">
-                                <i class="fas fa-trash"></i> Excluir
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <th:block th:case="'confirm-delete-product'">
+                <section th:replace="~{fragments/admin/confirm-delete-product :: confirm-delete-product}"></section>
+            </th:block>
 
             <!-- Categorias Section -->
             <!-- ⚠️ THYMELEAF: Remover style="display:none" e adicionar th:if="${adminSection == 'category'}" -->

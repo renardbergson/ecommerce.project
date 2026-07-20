@@ -9,7 +9,8 @@
     <!-- Products Form -->
     <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
     <form th:object="${product}" th:action="@{/admin/product/save}" id="produto-form" class="form-grid two-columns" action="admin.html" method="POST">
-        <input type="hidden" name="id" value="">
+        <!-- Mandar o id do produto (quando existir) já faz com que o ORM saiba que se trata de uma atualização! -->
+        <input type="hidden" th:field="*{id}">
 
         <div class="form-group">
             <label for="produto-nome">Nome do Produto</label>
@@ -49,9 +50,9 @@
         </div>
 
         <div class="form-actions">
-            <button type="button" class="btn btn-outline btn-form">
+            <a th:href="@{/admin/product}" type="button" class="btn btn-outline btn-form">
                 <i class="fas fa-times"></i> Cancelar
-            </button>
+            </a>
             <button type="submit" class="btn btn-primary btn-form">
                 <i class="fas fa-save"></i> Salvar
             </button>
@@ -93,7 +94,8 @@
 
             <tbody>
 
-            <!--/*@thymesVar id="products" type="java.lang.Iterable<com.project.ecommerce.project.ecommerce.models.Product>"*/-->
+
+            <!--/*@thymesVar id="products" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
@@ -101,10 +103,10 @@
                 <td th:text="${product.price}"></td>
                 <td th:text="${product.status}"></td>
                 <td class="action-buttons">
-                    <a href="admin.html" class="btn-icon btn-edit" title="Editar">
+                    <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn-icon btn-edit" title="Editar">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a href="admin.html" class="btn-icon btn-delete" title="Excluir">
+                    <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn-icon btn-delete" title="Excluir">
                         <i class="fas fa-trash"></i>
                     </a>
                 </td>

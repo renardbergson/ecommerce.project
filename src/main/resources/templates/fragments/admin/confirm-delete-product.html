@@ -1,0 +1,35 @@
+<section xmlns:th="http://www.thymeleaf.org" th:fragment="confirm-delete-product" id="delete-confirmation" class="admin-section">
+    <div class="admin-card">
+        <div class="card-header">
+            <h3>
+                <i class="fas fa-exclamation-triangle text-warning"></i>
+                Excluir Produto
+            </h3>
+        </div>
+        <div class="card-content">
+            <div class="delete-confirmation">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2>Confirmar Exclusão</h2>
+                <p>Deseja mesmo excluir este produto?</p>
+                <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
+                <h4 class="product-name-highlight" th:text="${product.name}">Notebook Dell Inspiron 15</h4>
+                <p class="warning-text">Esta ação não poderá ser desfeita.</p>
+            </div>
+        </div>
+        <div class="card-footer delete-footer" style="display: flex; justify-content: center; padding-bottom: 2rem;">
+            <div class="form-actions" style="gap: 1rem;">
+                <a th:href="@{/admin/product}" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+
+
+                <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
+                <a th:href="@{/admin/product/delete/{id}/confirm(id=${product.id})}" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Excluir
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
