@@ -1,19 +1,45 @@
 package com.project.ecommerce.project.ecommerce.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
 public class Product {
+    public enum Category {
+        ELECTRONICS("Eletrônicos", "fa-mobile-alt"),
+        CLOTHING("Roupas", "fa-tshirt"),
+        HOME_GARDEN("Casa & Jardim", "fa-chair"),
+        SPORTS("Esportes", "fa-running"),
+        TOYS("Brinquedos", "fa-puzzle-piece"),
+        BEAUTY("Beleza", "fa-magic"),
+        AUTOMOTIVE("Automotivo", "fa-car");
+
+        private final String description;
+        private final String icon;
+
+        Category(String description, String icon) {
+            this.description = description;
+            this.icon = icon;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getIcon() {
+            return icon;
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String name;
-    private String category;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
+
     private Double price;
     private String status;
     private String description;
@@ -34,11 +60,11 @@ public class Product {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 

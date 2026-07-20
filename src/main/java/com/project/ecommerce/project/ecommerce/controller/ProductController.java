@@ -32,6 +32,7 @@ public class ProductController {
         }
 
         model.addAttribute("products", productRepository.findAll());
+        model.addAttribute("categories", Product.Category.values());
         return "admin";
     }
 

@@ -94,7 +94,8 @@
             </th:block>
 
             <th:block th:case="'product'">
-                <section th:replace="~{fragments/admin/products :: products}"></section>
+                <!-- repassamos via parâmetro para o fragment o que recebemos do controller -->
+                <section th:replace="~{fragments/admin/products :: products(${product}, ${categories})}"></section>
             </th:block>
 
             <th:block th:case="'order'">
