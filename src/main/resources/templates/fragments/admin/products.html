@@ -1,4 +1,5 @@
-<section id="produtos-section" class="admin-section" th:fragment="products(product, categories)" xmlns:th="http://www.thymeleaf.org">
+<section id="produtos-section" class="admin-section" th:fragment="products(product, categories)"
+    xmlns:th="http://www.thymeleaf.org">
     <div class="admin-header-section">
         <h2><i class="fas fa-box"></i> Gestão de Produtos</h2>
         <a href="" class="btn btn-primary" id="add-produto-btn">
@@ -8,8 +9,26 @@
 
     <!-- Products Form -->
     <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
-    <form th:object="${product}" th:action="@{/admin/product/save}" id="produto-form" class="form-grid two-columns" action="admin.html" method="POST">
-        <!-- Mandar o id do produto (quando existir) já faz com que o ORM saiba que se trata de uma atualização! -->
+    <form th:object="${product}" th:action="@{/admin/product/save}" id="produto-form" class="form-grid two-columns"
+        action="admin.html" method="POST">
+        <!--
+            1. Ao abrir o formulário para criar um novo produto:
+
+            O Spring passa um objeto novo vazio: new Product().
+            Nesse momento, o atributo id é null.
+            No HTML ( products.html ), a tag <input type="hidden" 
+            th:field="*{id}"> (ou type="text") fica vazia (value="").
+            Ao clicar em "Salvar" (POST /admin/product/save):
+
+            O controller recebe o produto com id = null.
+            Ao chamar productRepository.save(product):
+            O Hibernate verifica se o id é null.
+            Se o id for null: O Hibernate entende que é uma Criação 
+            (INSERT). Antes de enviar para o banco de dados, o próprio 
+            Hibernate gera um novo UUID automaticamente e atribui ao id.
+            Se o id NÃO for null (no caso de edição de um produto existente): 
+            O Hibernate entende que é uma Atualização (UPDATE).
+        -->
         <input type="hidden" th:field="*{id}">
 
         <div class="form-group">
@@ -23,11 +42,8 @@
             <label for="produto-categoria">Categoria</label>
             <select id="produto-categoria" th:field="*{category}" required>
                 <option value="">Selecione uma categoria</option>
-                <option
-                        th:each="category : ${categories}"
-                        th:value="${category.name()}"
-                        th:text="${category.description}"
-                >
+                <option th:each="category : ${categories}" th:value="${category.name()}"
+                    th:text="${category.description}">
                     Eletrônicos
                 </option>
             </select>
@@ -60,7 +76,8 @@
             </button>
         </div>
     </form>
-    <br><hr><br>
+    <br>
+    <hr><br>
     <!-- Fim Form Produto Section -->
 
     <!-- Products Table -->
@@ -70,14 +87,11 @@
             <input type="text" id="search-produtos" placeholder="Buscar produtos..." class="admin-input">
             <!--/*@thymesVar id="categories" type="com.project.ecommerce.project.ecommerce.models.Product$Category[]"*/-->
             <!--/*@thymesVar id="category" type="com.project.ecommerce.project.ecommerce.models.Product$Category"*/-->
-            <select id="filter-categoria" class="admin-select" onchange="window.location.href = 'admin.html' + (this.value ? '?category=' + encodeURIComponent(this.value) : '')">
+            <select id="filter-categoria" class="admin-select"
+                onchange="window.location.href = 'admin.html' + (this.value ? '?category=' + encodeURIComponent(this.value) : '')">
                 <option value="" selected>Todas as categorias</option>
-                <option
-
-                        th:each="category : ${categories}"
-                        th:value="${category.name()}"
-                        th:text="${category.description}"
-                >--</option>
+                <option th:each="category : ${categories}" th:value="${category.name()}"
+                    th:text="${category.description}">--</option>
             </select>
         </div>
     </div>
@@ -85,34 +99,36 @@
     <div class="admin-table-container">
         <table class="admin-table" id="produtos-table">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Categoria</th>
-                <th>Preço</th>
-                <th>Status</th>
-                <th>Ações</th>
-            </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Preço</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
 
             <tbody>
-            <!--/*@thymesVar id="products" type="Iterable<com.project.ecommerce.project.ecommerce.models.Product>"*/-->
-            <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
-            <tr th:each="product : ${products}">
-                <td th:text="${product.id}"></td>
-                <td th:text="${product.name}"></td>
-                <td th:text="${product.category.description}"></td>
-                <td th:text="${product.price}"></td>
-                <td th:text="${product.status}"></td>
-                <td class="action-buttons">
-                    <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn-icon btn-edit" title="Editar">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn-icon btn-delete" title="Excluir">
-                        <i class="fas fa-trash"></i>
-                    </a>
-                </td>
-            </tr>
+                <!--/*@thymesVar id="products" type="Iterable<com.project.ecommerce.project.ecommerce.models.Product>"*/-->
+                <!--/*@thymesVar id="product" type="com.project.ecommerce.project.ecommerce.models.Product"*/-->
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.id}"></td>
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.category.description}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.status}"></td>
+                    <td class="action-buttons">
+                        <a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="btn-icon btn-edit"
+                            title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="btn-icon btn-delete"
+                            title="Excluir">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
