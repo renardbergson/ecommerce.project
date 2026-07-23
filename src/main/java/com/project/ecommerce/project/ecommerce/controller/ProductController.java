@@ -1,7 +1,6 @@
 package com.project.ecommerce.project.ecommerce.controller;
 
 import com.project.ecommerce.project.ecommerce.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -14,8 +13,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/admin")
 public class ProductController {
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    ProductController(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     @GetMapping("/product")
     public String product(Model model) {
