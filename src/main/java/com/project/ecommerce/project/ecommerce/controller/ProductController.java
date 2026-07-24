@@ -20,7 +20,10 @@ public class ProductController {
     }
 
     @GetMapping("/product")
-    public String product(Model model) {
+    public String product(Model model, @RequestParam(required = false) String category) {
+        Iterable<Product> products;
+        Product.Category selectedCategory = null;
+
         if(model.containsAttribute("product")) {
             model.addAttribute("product", model.getAttribute("product"));
         } else {
@@ -33,8 +36,24 @@ public class ProductController {
             model.addAttribute("adminSection", "product");
         }
 
-        model.addAttribute("products", productRepository.findAll());
+        if(category != null && !category.isBlank()) {
+            try {
+                selectedCategory = Product.Category.valueOf(category.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid category: " + category);
+                return "redirect:/admin/product";
+            }
+        }
+
+        if(selectedCategory != null) {
+            products = productRepository.findByCategory(selectedCategory);
+        } else {
+            products = productRepository.findAll();
+        }
+
+        model.addAttribute("products", products);
         model.addAttribute("categories", Product.Category.values());
+        model.addAttribute("categoryFilter", selectedCategory);
         return "admin";
     }
 

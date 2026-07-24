@@ -88,10 +88,21 @@
             <!--/*@thymesVar id="categories" type="com.project.ecommerce.project.ecommerce.models.Product$Category[]"*/-->
             <!--/*@thymesVar id="category" type="com.project.ecommerce.project.ecommerce.models.Product$Category"*/-->
             <select id="filter-categoria" class="admin-select"
-                onchange="window.location.href = 'admin.html' + (this.value ? '?category=' + encodeURIComponent(this.value) : '')">
-                <option value="" selected>Todas as categorias</option>
-                <option th:each="category : ${categories}" th:value="${category.name()}"
-                    th:text="${category.description}">--</option>
+                onchange="window.location.href = 'product' + (this.value ? '?category=' + encodeURIComponent(this.value.toString().toLowerCase()) : '')"
+            >
+
+                <!--/*@thymesVar id="categoryFilter" type="com.project.ecommerce.project.ecommerce.models.Product$Category"*/-->
+                <option value="" th:selected="${categoryFilter == null}">
+                    Todas as categorias
+                </option>
+                <option
+                        th:each="category : ${categories}"
+                        th:selected="${categoryFilter == category}"
+                        th:value="${category.name()}"
+                        th:text="${category.description}"
+                >
+                    --
+                </option>
             </select>
         </div>
     </div>

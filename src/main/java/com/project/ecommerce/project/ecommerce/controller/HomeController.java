@@ -30,7 +30,7 @@ public class HomeController {
             }
         }
 
-        if(category != null) {
+        if(selectedCategory != null) {
             products = productRepository.findByCategory(selectedCategory);
         } else {
             products = productRepository.findAll();
